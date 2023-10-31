@@ -32,7 +32,7 @@ public class Punk {
     public void getRequest() throws IOException {
         URL urlObj = new URL(url + this.endpoint);
         HttpsURLConnection connection = (HttpsURLConnection) urlObj.openConnection();
-        connection.setRequestMethod("get");
+        connection.setRequestMethod("GET");
 
         int responseCode = connection.getResponseCode();
 
