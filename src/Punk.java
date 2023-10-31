@@ -1,6 +1,7 @@
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
+import javax.net.ssl.HttpsURLConnection;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Scanner;
 
 public class Punk {
     private int beerId;
@@ -28,7 +29,26 @@ public class Punk {
         return this.endpoint;
     }
 
-    public void getRequest() {
+    public void getRequest() throws IOException {
+        URL urlObj = new URL(url + this.endpoint);
+        HttpsURLConnection connection = (HttpsURLConnection) urlObj.openConnection();
+        connection.setRequestMethod("get");
 
+        int responseCode = connection.getResponseCode();
+
+        if(responseCode == HttpsURLConnection.HTTP_OK) {
+            StringBuilder sb = new StringBuilder();
+            Scanner scan = new Scanner(connection.getInputStream());
+
+            while(scan.hasNext()) {
+                sb.append(scan.nextLine());
+            }
+
+            System.out.println(sb);
+        }
+
+        else {
+            System.out.println("Error");
+        }
     }
 }
